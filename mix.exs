@@ -5,7 +5,7 @@ defmodule VBT.MixProject do
     [
       app: :vbt,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
@@ -33,24 +33,24 @@ defmodule VBT.MixProject do
       {:absinthe_relay, "~> 1.5"},
       {:bamboo, "~> 2.2"},
       {:bamboo_phoenix, "~> 1.0.0"},
-      {:bcrypt_elixir, "~> 2.3"},
+      {:bcrypt_elixir, "~> 3.0"},
       {:credo, "~> 1.5", runtime: false},
       {:dialyxir, "~> 1.1", runtime: false},
       {:ecto_enum, "~> 1.4"},
       {:ecto_sql, "~> 3.7"},
       {:ex_aws_s3, "~> 2.3"},
       {:ex_crypto, "~> 0.10.0"},
-      {:ex_doc, "~> 0.25.1", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.30", only: :dev, runtime: false},
       {:mox, "~> 1.0", only: :test},
       {:oban, "~> 2.8"},
       {:parent, "~> 0.12.0"},
-      {:phoenix_html, "~> 2.13"},
-      {:phoenix_live_view, "~> 0.14", optional: true},
-      {:phoenix, "~> 1.5.12"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_live_view, "~> 0.19", optional: true},
+      {:phoenix, "~> 1.7"},
       {:plug_cowboy, "~> 2.5"},
       {:provider, github: "VeryBigThings/provider"},
       {:sentry, "~> 8.0"},
-      {:stream_data, "~> 0.5.0", only: [:test, :dev]}
+      {:stream_data, "~> 0.6", only: [:test, :dev]}
     ]
   end
 
