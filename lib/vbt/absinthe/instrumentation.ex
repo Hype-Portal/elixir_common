@@ -87,7 +87,7 @@ defmodule VBT.Absinthe.Instrumentation do
         end)
 
       Logger.warn([
-        "spent #{total_duration}ms in #{Logger.Utils.truncate(metadata.query, 1000)}\n"
+        "spent #{total_duration}ms in #{Logger.Utils.truncate_n(metadata.query, 1000)}\n"
         | operations
       ])
     end
