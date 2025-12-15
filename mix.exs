@@ -13,7 +13,7 @@ defmodule VBT.MixProject do
       dialyzer: dialyzer(),
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix] ++ Mix.compilers(),
-      source_url: "https://github.com/VeryBigThings/elixir_common_private/",
+      source_url: "https://github.com/Hype-Portal/elixir_common/",
       docs: docs()
     ]
   end
@@ -45,10 +45,10 @@ defmodule VBT.MixProject do
       {:oban, "~> 2.8"},
       {:parent, "~> 0.12.0"},
       {:phoenix_html, "~> 3.3"},
-      {:phoenix_live_view, "~> 0.19", optional: true},
+      {:phoenix_live_view, "~> 1.0.2", optional: true},
       {:phoenix, "~> 1.7"},
       {:plug_cowboy, "~> 2.5"},
-      {:provider, github: "VeryBigThings/provider"},
+      {:provider, github: "Hype-Portal/provider"},
       {:sentry, "~> 8.0"},
       {:stream_data, "~> 0.6", only: [:test, :dev]}
     ]
