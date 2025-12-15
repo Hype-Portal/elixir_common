@@ -92,7 +92,7 @@ defmodule Mix.Tasks.Vbt.New do
 
   vbt_dep =
     case Mix.env() do
-      :prod -> ~s(git: "git@github.com:VeryBigThings/elixir_common")
+      :prod -> ~s(git: "git@github.com:Hype-Portal/elixir_common")
       :test -> ~s(path: "../../../..")
       :dev -> ~s(path: "#{File.cwd!()}")
     end
