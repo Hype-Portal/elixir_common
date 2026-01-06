@@ -233,7 +233,7 @@ defmodule VBT.Accounts do
   end
 
   defp password_ok?(account, password),
-    do: match?({:ok, _}, Bcrypt.check_pass(account, password, hash_key: :password_hash))
+    do: Bcrypt.verify_pass(password, Map.get(account, :password_hash))
 
   defp password_hash(password), do: Bcrypt.hash_pwd_salt(password)
 
@@ -276,9 +276,6 @@ defmodule VBT.Accounts do
   defp validate_login(changeset, _field), do: changeset
 
   defp password_ok?(account, password, config) do
-    match?(
-      {:ok, _},
-      Bcrypt.check_pass(account, password, hash_key: config.password_hash_field)
-    )
+    Bcrypt.verify_pass(password, Map.get(account, config.password_hash_field))
   end
 end

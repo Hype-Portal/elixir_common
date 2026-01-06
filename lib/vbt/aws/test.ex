@@ -28,7 +28,7 @@ defmodule VBT.Aws.Test do
   @spec setup :: :ok
   def setup do
     Application.put_env(:vbt, :ex_aws_client, VBT.TestAwsClient)
-    mox().defmock(VBT.TestAwsClient, for: ExAws.Behaviour)
+    apply(mox(), :defmock, [VBT.TestAwsClient, [for: ExAws.Behaviour]])
     :ok
   end
 
@@ -54,15 +54,19 @@ defmodule VBT.Aws.Test do
   def stub_request(response) do
     test_pid = self()
 
-    mox().stub(VBT.TestAwsClient, :request, fn req, config ->
-      send(test_pid, {:aws_request, req, config})
+    apply(mox(), :stub, [
+      VBT.TestAwsClient,
+      :request,
+      fn req, config ->
+        send(test_pid, {:aws_request, req, config})
 
-      case response do
-        body when is_binary(body) -> {:ok, %{body: body, headers: [], status_code: 200}}
-        {:ok, _} = success -> success
-        {:error, _} = error -> error
+        case response do
+          body when is_binary(body) -> {:ok, %{body: body, headers: [], status_code: 200}}
+          {:ok, _} = success -> success
+          {:error, _} = error -> error
+        end
       end
-    end)
+    ])
 
     :ok
   end

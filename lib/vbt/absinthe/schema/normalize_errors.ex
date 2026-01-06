@@ -16,7 +16,7 @@ defmodule VBT.Absinthe.Schema.NormalizeErrors do
 
   @impl Absinthe.Middleware
   # credo:disable-for-next-line Credo.Check.Readability.Specs
-  def call(resolution, _arg) do
+  def call(%Absinthe.Resolution{} = resolution, _arg) do
     if resolution.state == :resolved do
       errors =
         Enum.flat_map(
@@ -27,10 +27,10 @@ defmodule VBT.Absinthe.Schema.NormalizeErrors do
           end
         )
 
-      %Absinthe.Resolution{resolution | errors: errors}
+      %{resolution | errors: errors}
     else
       # Field is not yet resolved, so we'll execute this middleware at the very end
-      %Absinthe.Resolution{resolution | middleware: resolution.middleware ++ [__MODULE__]}
+      %{resolution | middleware: resolution.middleware ++ [__MODULE__]}
     end
   end
 

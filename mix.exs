@@ -9,10 +9,10 @@ defmodule VBT.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
-      preferred_cli_env: preferred_cli_env(),
+      cli: cli(),
       dialyzer: dialyzer(),
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       source_url: "https://github.com/Hype-Portal/elixir_common/",
       docs: docs()
     ]
@@ -30,27 +30,26 @@ defmodule VBT.MixProject do
   defp deps do
     [
       {:absinthe_phoenix, "~> 2.0"},
-      {:absinthe_relay, "~> 1.5"},
-      {:bamboo, "~> 2.2"},
+      {:absinthe_relay, "~> 1.6"},
+      {:bamboo, "~> 2.5"},
       {:bamboo_phoenix, "~> 1.0.0"},
-      {:bcrypt_elixir, "~> 3.0"},
-      {:credo, "~> 1.5", runtime: false},
-      {:dialyxir, "~> 1.1", runtime: false},
-      {:ecto_enum, "~> 1.4"},
-      {:ecto_sql, "~> 3.7"},
-      {:ex_aws_s3, "~> 2.3"},
+      {:boundary, "~> 0.10", runtime: false},
+      {:bcrypt_elixir, "~> 3.3"},
+      {:credo, "~> 1.7", runtime: false},
+      {:dialyxir, "~> 1.4", runtime: false},
+      {:ecto_sql, "~> 3.13"},
+      {:ecto, "~> 3.13"},
+      {:ex_aws_s3, "~> 2.5"},
       {:ex_crypto, "~> 0.10.0"},
-      {:ex_doc, "~> 0.30", only: :dev, runtime: false},
-      {:mox, "~> 1.0", only: :test},
-      {:oban, "~> 2.8"},
+      {:ex_doc, "~> 0.39", only: :dev, runtime: false},
+      {:mox, "~> 1.2", only: :test},
+      {:oban, "~> 2.20"},
       {:parent, "~> 0.12.0"},
-      {:phoenix_html, "~> 3.3"},
-      {:phoenix_live_view, "~> 1.0.2", optional: true},
-      {:phoenix, "~> 1.7"},
-      {:plug_cowboy, "~> 2.5"},
-      {:provider, github: "Hype-Portal/provider"},
-      {:sentry, "~> 8.0"},
-      {:stream_data, "~> 0.6", only: [:test, :dev]}
+      {:phoenix_html, "~> 4.3"},
+      {:phoenix_live_view, "~> 1.1.19", optional: true},
+      {:phoenix, "~> 1.8"},
+      {:plug_cowboy, "~> 2.7"},
+      {:stream_data, "~> 1.2", only: [:test, :dev]}
     ]
   end
 
@@ -62,14 +61,16 @@ defmodule VBT.MixProject do
     ]
   end
 
-  defp preferred_cli_env do
+  defp cli do
     [
-      credo: :test,
-      dialyzer: :test,
-      "ecto.reset": :test,
-      "ecto.migrate": :test,
-      "ecto.rollback": :test,
-      "ecto.gen.migration": :test
+      preferred_envs: [
+        credo: :test,
+        dialyzer: :test,
+        "ecto.reset": :test,
+        "ecto.migrate": :test,
+        "ecto.rollback": :test,
+        "ecto.gen.migration": :test
+      ]
     ]
   end
 

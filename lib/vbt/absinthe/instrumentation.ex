@@ -86,7 +86,7 @@ defmodule VBT.Absinthe.Instrumentation do
           "  -> #{div(data.duration, 1000)}ms (#{data.count} calls) in #{operation}\n"
         end)
 
-      Logger.warn([
+      Logger.warning([
         "spent #{total_duration}ms in #{Logger.Utils.truncate_n(metadata.query, 1000)}\n"
         | operations
       ])

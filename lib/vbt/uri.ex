@@ -30,11 +30,11 @@ defmodule VBT.URI do
       "http://foo.bar:4000/#!some/path?foo=1&bar=2#some_fragment"
   """
   @spec to_string(URI.t()) :: String.t()
-  def to_string(uri) do
+  def to_string(%URI{} = uri) do
     if not is_nil(uri.path) and not String.starts_with?(uri.path, "/"),
       do: raise(ArgumentError, message: "the input path must start with /")
 
-    URI.to_string(%URI{uri | path: "/", query: nil, fragment: encode_fragment(uri)})
+    URI.to_string(%{uri | path: "/", query: nil, fragment: encode_fragment(uri)})
   end
 
   @doc """
