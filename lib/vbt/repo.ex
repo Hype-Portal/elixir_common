@@ -167,7 +167,7 @@ defmodule VBT.Repo do
 
   @doc false
   # credo:disable-for-next-line Credo.Check.Readability.Specs
-  def transact(repo, fun, opts \\ []) do
+  def transact(repo, fun, opts) do
     repo.transaction(
       fn repo ->
         Function.info(fun, :arity)
