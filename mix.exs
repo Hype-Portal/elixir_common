@@ -49,6 +49,7 @@ defmodule VBT.MixProject do
       {:phoenix_live_view, "~> 1.1.19", optional: true},
       {:phoenix, "~> 1.8"},
       {:plug_cowboy, "~> 2.7"},
+      {:sentry, "~> 8.0"},
       {:stream_data, "~> 1.2", only: [:test, :dev]}
     ]
   end
