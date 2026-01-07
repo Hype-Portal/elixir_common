@@ -95,17 +95,21 @@ defmodule VBT.Repo do
       @behaviour VBT.Repo
 
       @impl VBT.Repo
-      def fetch(schema, id, opts \\ []), do: VBT.Repo.fetch(__MODULE__, schema, id, opts)
+      def fetch(schema, id, opts \\ [])
+      def fetch(schema, id, opts), do: VBT.Repo.fetch(__MODULE__, schema, id, opts)
 
       @impl VBT.Repo
-      def fetch_by(queryable, clauses, opts \\ []),
+      def fetch_by(queryable, clauses, opts \\ [])
+      def fetch_by(queryable, clauses, opts),
         do: VBT.Repo.fetch_by(__MODULE__, queryable, clauses, opts)
 
       @impl VBT.Repo
-      def fetch_one(queryable, opts \\ []), do: VBT.Repo.fetch_one(__MODULE__, queryable, opts)
+      def fetch_one(queryable, opts \\ [])
+      def fetch_one(queryable, opts), do: VBT.Repo.fetch_one(__MODULE__, queryable, opts)
 
       @impl VBT.Repo
-      def transact(fun, opts \\ []), do: VBT.Repo.transact(__MODULE__, fun, opts)
+      def transact(fun, opts \\ [])
+      def transact(fun, opts), do: VBT.Repo.transact(__MODULE__, fun, opts)
 
       @impl VBT.Repo
       def delete_one(query), do: VBT.Repo.delete_one(__MODULE__, query)
