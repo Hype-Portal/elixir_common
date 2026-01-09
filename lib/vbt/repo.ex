@@ -105,7 +105,7 @@ defmodule VBT.Repo do
       def fetch_one(queryable, opts), do: VBT.Repo.fetch_one(__MODULE__, queryable, opts)
 
       @impl VBT.Repo
-      def transact(fun, opts), do: VBT.Repo.transact(__MODULE__, fun, opts)
+      def with_transaction(fun, opts), do: VBT.Repo.with_transaction(__MODULE__, fun, opts)
 
       @impl VBT.Repo
       def delete_one(query), do: VBT.Repo.delete_one(__MODULE__, query)
@@ -166,18 +166,25 @@ defmodule VBT.Repo do
   end
 
   @doc false
-  # credo:disable-for-next-line Credo.Check.Readability.Specs
-  def transact(repo, fun, opts) do
+  def with_transaction(repo, fun, opts) do
     repo.transaction(
       fn repo ->
-        Function.info(fun, :arity)
-        |> case do
-          {:arity, 0} -> fun.()
-          {:arity, 1} -> fun.(repo)
-        end
-        |> case do
-          {:ok, result} -> result
-          {:error, reason} -> repo.rollback(reason)
+        result =
+          case Function.info(fun, :arity) do
+            {:arity, 0} -> fun.()
+            {:arity, 1} -> fun.(repo)
+          end
+
+        case result do
+          {:ok, value} ->
+            value
+
+          {:error, reason} ->
+            repo.rollback(reason)
+
+          other ->
+            raise ArgumentError,
+                  "expected {:ok, _} or {:error, _} from transaction function, got: #{inspect(other)}"
         end
       end,
       opts
