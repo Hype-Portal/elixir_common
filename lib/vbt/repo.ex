@@ -61,7 +61,7 @@ defmodule VBT.Repo do
   - If the lambda returns any other kind of result, an exception is raised, and the transaction
     is rolled back.
   """
-  @callback transact((() -> result) | (module -> result), Keyword.t()) :: result
+  @callback with_transaction((() -> result) | (module -> result), Keyword.t()) :: result
             when result: {:ok, any} | {:error, any}
 
   @doc """
@@ -195,7 +195,7 @@ defmodule VBT.Repo do
   # credo:disable-for-next-line Credo.Check.Readability.Specs
   def delete_one(repo, query) do
     # deleting in transaction so we can rollback if multiple rows are deleted
-    case transact(repo, fn -> unsafe_delete_one(repo, query) end, []) do
+    case with_transaction(repo, fn -> unsafe_delete_one(repo, query) end, []) do
       {:ok, nil} -> :ok
       {:ok, [record]} -> {:ok, record}
       {:error, _reason} = error -> error
